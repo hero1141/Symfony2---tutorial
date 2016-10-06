@@ -16,11 +16,14 @@ $container = $kernel->getContainer();
 $container->enterScope('request');
 $container->set('request', $request);
 
+use Yoda\EventBundle\Entity\Event;
 
-$templating = $container->get('templating');
+$event = new Event();
+$event->setName('Darth Vader');
+$event->setLocation('Deathstar');
+$event->setTime(new \DateTime('tomorrow noon'));
+//$event->setDetails('HA! HAHAHAHA');
 
-echo $templating->render(
-  'EventBundle:Default:index.html.twig',
-    array('name' => 'Darth Vader', 'count' => 5)
-
-);
+$em = $container->get('doctrine')->getManager();
+$em->persist($event);
+$em->flush();
