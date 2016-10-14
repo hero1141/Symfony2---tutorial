@@ -19,29 +19,30 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request) {
         $session = $request->getSession();
-
-        // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                SecurityContext::AUTHENTICATION_ERROR
-            );
-        } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        }
-
+        $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
         return array(
                 // last username entered by the user
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $lastUsername,
                 'error'         => $error,
         );
     }
 
     /**
-     * @Route("/login_check", name="login_check")
+     * @Route("/logout", name="logout")
      */
     public function loginCheckAction()
+    {
+        //Blank
+
+    }
+
+    /**
+     * @Route("/login_check", name="login_check")
+     */
+    public function logoutAction()
     {
         //Blank
 
