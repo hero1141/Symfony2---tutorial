@@ -27,5 +27,6 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/event/new, roles: ROLE_USER }
-        - { path: ^/create, roles: ROLE_USER }
+  #putting security in the controller cass instead!
+#        - { path: ^/event/new, roles: ROLE_USER }
+#        - { path: ^/create, roles: ROLE_USER }
